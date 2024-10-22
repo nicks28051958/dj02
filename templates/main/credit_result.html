@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load humanize %}
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты кредитного расчета</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #20B2AA; /* Светло-голубой фон */
+        }
+    </style>
+
+</head>
+<body>
+
+ {% include 'main/menu.html' %}
+
+
+    <div class="container mt-5">
+        <h1 class="text-center">Сравнительные результаты расчета кредитов</h1>
+
+        <div class="row">
+    {% for result in results %}
+        <div class="col-md-4">
+            <div class="card mb-4 {{ result.card_color }}">  <!-- Используем card_color для изменения цвета -->
+                <div class="card-body">
+                    <h5 class="card-title" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 26px;">{{ result.bank_name }}</h5>
+                    <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 16px;">Тип кредита: {{ result.credit_type }}</p>
+                    <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 17px;">Сумма кредита: {{ result.credit_sum_formated }} руб.</p>
+                    <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 16px;">Процентная ставка: {{ result.interest_rate|floatformat:1 }}%</p>
+                    <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 16px;">Срок: {{ result.credit_term }} месяцев ({{ result.credit_term_years }} лет)</p>
+                    <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 17px;">Ежемесячный платеж: {{ result.monthly_payment_formated }} руб.</p>
+                    <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 17px;">Сумма процентов: {{ result.sum_rate_formatted }} руб.</p>
+                    <p class="card-text" style="font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 17px;">Сумма выплат по кредиту: {{ result.sum_plat_formated }} руб.</p>
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% include 'main/footer.html' %}
+</body>
+</html>
